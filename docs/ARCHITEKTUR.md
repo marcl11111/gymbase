@@ -82,6 +82,16 @@ Regeln:
 - `prefers-reduced-motion` **oder** die App-Einstellung „Animationen reduzieren“ schalten die Effekte ab; Inhalte sind dann sofort sichtbar.
 - Im Trainingsmodus nur kleine Rückmeldungen (Übungswechsel, Fortschrittsbalken, abgehakter Satz).
 
+## Betrieb / Hosting
+
+| Variante | Wie | Adresse |
+|---|---|---|
+| Lokal | `GymBase starten.bat` bzw. `npm run preview` | http://localhost:4173 |
+| Entwicklung | `npm run dev` | http://localhost:5173 |
+| Online | GitHub Pages über `.github/workflows/deploy.yml` | https://marcl11111.github.io/gymbase/ |
+
+Überall wird nur der statische Build (`dist/`) ausgeliefert; Daten bleiben im jeweiligen Browser. Details: [VEROEFFENTLICHEN.md](VEROEFFENTLICHEN.md).
+
 ## Logo
 
 `public/brand/` enthält das Originallogo, zerlegt in transparente Ebenen: `mark-c.png` (weißes C), `mark-b.png` (gelbes B), `word-gym.png`, `word-base.png`. Alle Ebenen haben identische Abmessungen und werden übereinander gelegt, damit sie einzeln animiert werden können. Im hellen Modus werden die weißen Ebenen per CSS-Filter dunkel dargestellt.

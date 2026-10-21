@@ -14,6 +14,10 @@
 
 ## 2. Starten
 
+### Online (ohne Installation)
+
+<https://marcl11111.github.io/gymbase/> öffnen. Funktioniert auf PC und Handy; am Handy über das Browser-Menü „Zum Startbildschirm hinzufügen“ wie eine App starten. Die Online-Version wird bei jedem Upload automatisch aktualisiert (siehe [VEROEFFENTLICHEN.md](VEROEFFENTLICHEN.md)).
+
 ### Variante A – `GymBase starten.bat` (Windows)
 
 Doppelklick. Die Datei
@@ -97,7 +101,8 @@ Designmodus, Akzentfarbe, Animationen reduzieren, Name für die Begrüßung, kg/
 
 - **Export**: *Einstellungen → Daten exportieren* erzeugt `gymbase-export-JJJJ-MM-TT.json` mit eigenen Übungen (inkl. Bilder), Sammlungen, Favoriten, Plänen, Einheiten und Einstellungen.
 - **Import**: *Daten importieren* prüft die Datei zuerst und zeigt den Inhalt. Dann **Zusammenführen** (Bestehendes bleibt, Neues kommt dazu) oder **Alles ersetzen**.
-- Daten gelten **pro Browser und pro Adresse** (Host + Port). Beim Wechsel von Browser, Rechner oder Port: exportieren → importieren.
+- Daten gelten **pro Browser und pro Adresse** (Host + Port). Online-Version, `localhost:4173`, `localhost:5173` und das Handy haben jeweils eigene Daten. Beim Wechsel: exportieren → importieren.
+- Auf GitHub werden keine Trainingsdaten gespeichert – dort liegt nur die App.
 - **Zurücksetzen** löscht alle persönlichen Daten erst nach Eingabe von `LÖSCHEN`. Die Übungsdatenbank bleibt.
 
 ## 5. Problemlösung
@@ -109,4 +114,6 @@ Designmodus, Akzentfarbe, Animationen reduzieren, Name für die Begrüßung, kg/
 | Änderungen am Code nicht sichtbar | `dist` löschen bzw. `"GymBase starten.bat" build` |
 | Daten „weg“ | Gleiche Adresse und gleichen Browser verwenden; ggf. Export/Import |
 | Animationen stören | *Einstellungen → Animationen reduzieren* oder Windows-Einstellung „Animationseffekte“ aus |
+| Online-Version zeigt nur eine weiße Seite | Alte Version im Browser-Cache – **`Strg + F5`** oder privates Fenster |
+| Online neue Version nicht sichtbar | `Strg + F5`; Deployment in GitHub unter *Actions* prüfen |
 | Schriftart sieht anders aus | Ohne Internet wird statt „Archivo/Inter“ eine Systemschrift genutzt – reine Optik |

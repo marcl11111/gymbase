@@ -34,9 +34,14 @@ npm run build && npm run preview     # Fenster 1
 node e2e/smoke.mjs                   # Fenster 2
 ```
 
-## Continuous Integration
+## Continuous Integration & Deployment
 
-`.github/workflows/ci.yml` führt bei jedem Push und Pull Request `npm ci`, `npm run lint`, `npm test` und `npm run build` aus.
+| Workflow | Auslöser | Schritte |
+|---|---|---|
+| `.github/workflows/ci.yml` | Push auf `main`, Pull Requests | `npm ci`, `npm run lint`, `npm test`, `npm run build` |
+| `.github/workflows/deploy.yml` | Push auf `main`, manuell | `npm ci`, `npm run build`, `dist/` → GitHub Pages |
+
+Die Workflow-Dateien liegen beim ersten Mal in `tools/` und werden vom Upload-Skript nach `.github/workflows/` verschoben. Hochladen und Veröffentlichen: [VEROEFFENTLICHEN.md](VEROEFFENTLICHEN.md).
 
 ## Eigene Übung fest in die Datenbank aufnehmen
 

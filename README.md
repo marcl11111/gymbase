@@ -48,15 +48,21 @@ Dazu: Scroll-Animationen (Zoom, Fade, Parallax, fixierte Sektionen, wortweise Ü
 
 ## Schnellstart
 
+### Online – ohne Installation
+
+**<https://marcl11111.github.io/gymbase/>** im Browser öffnen (auch am Handy; dort über „Zum Startbildschirm hinzufügen“ wie eine App nutzbar). Nach einem Update ggf. `Strg + F5`.
+
+### Lokal
+
 Voraussetzung: [Node.js](https://nodejs.org) ab Version 18.
 
-### Windows – per Doppelklick
+#### Windows – per Doppelklick
 
 `GymBase starten.bat` im Projektordner ausführen. Die Datei installiert beim ersten Mal die Abhängigkeiten, baut die App und öffnet **http://localhost:4173**.
 
 > Der Pfad in der Batch-Datei ist auf `C:\Users\marce\Desktop\gymbase` gesetzt. Bei einem anderen Speicherort die Zeile `cd /d "…"` anpassen.
 
-### Manuell
+#### Manuell
 
 ```bash
 npm install
@@ -66,7 +72,7 @@ npm run preview      # → http://localhost:4173
 
 Für die Entwicklung mit Live-Reload: `npm run dev` (→ http://localhost:5173).
 
-> **Wichtig:** Daten werden pro Adresse gespeichert. `localhost:4173` und `localhost:5173` haben getrennte Daten. Zum Umziehen: *Einstellungen → Daten exportieren / importieren*.
+> **Wichtig:** Daten werden im Browser pro Adresse gespeichert. Online-Version, `localhost:4173` und `localhost:5173` haben jeweils getrennte Daten. Zum Umziehen: *Einstellungen → Daten exportieren / importieren*.
 
 Alle Details: [docs/ANLEITUNG.md](docs/ANLEITUNG.md)
 
@@ -88,6 +94,7 @@ Alle Details: [docs/ANLEITUNG.md](docs/ANLEITUNG.md)
 | [Architektur](docs/ARCHITEKTUR.md) | Aufbau, Datenfluss, Animationssystem, Designentscheidungen |
 | [Datenmodell & Speicherung](docs/DATEN.md) | Typen, localStorage/IndexedDB, Versionierung, Export-Format |
 | [Generator](docs/GENERATOR.md) | Regeln des Trainingsplan-Generators im Detail |
+| [Veröffentlichen](docs/VEROEFFENTLICHEN.md) | GitHub-Upload per Skript, GitHub Pages, Daten online vs. lokal, Problemlösung, eigene Domain |
 | [Entwicklung](docs/ENTWICKLUNG.md) | Befehle, Tests, Codekonventionen, eigene Übungen ergänzen |
 | [Changelog](CHANGELOG.md) | Versionshistorie |
 
@@ -115,7 +122,10 @@ gymbase/
 ├─ tests/                 Unit-Tests (Vitest)
 ├─ e2e/                   Browser-Smoke-Test (Playwright, optional)
 ├─ docs/                  Dokumentation + Screenshots
-└─ GymBase starten.bat    Start per Doppelklick (Windows)
+├─ tools/                 Upload-Skript für GitHub, Profil-README-Vorlage
+├─ .github/workflows/     CI (lint, test, build) + Deploy auf GitHub Pages
+├─ GitHub hochladen.bat   Änderungen auf GitHub hochladen (Windows)
+└─ GymBase starten.bat    Lokaler Start per Doppelklick (Windows)
 ```
 
 ## Bildquellen & Hinweise

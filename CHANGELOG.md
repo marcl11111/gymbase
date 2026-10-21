@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.1] – 2026-10-21
+
+### Hinzugefügt
+- Online-Version über GitHub Pages: <https://marcl11111.github.io/gymbase/>
+- Workflow `deploy.yml` (Build und Veröffentlichung bei jedem Push auf `main`)
+- `GitHub hochladen.bat` + `tools/github-hochladen.ps1`: Commit, Push, Repository-Metadaten, GitHub Pages und Profil-README in einem Schritt
+- Dokumentation `docs/VEROEFFENTLICHEN.md`; Anleitung, Architektur, Entwicklung und README um Online-Version ergänzt
+
 ## [1.0.0] – 2026-10-21
 
 Erste Version.
