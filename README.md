@@ -15,6 +15,8 @@
   <img alt="GSAP" src="https://img.shields.io/badge/GSAP-ScrollTrigger-88ce02">
 </p>
 
+<p align="center"><a href="https://marcl11111.github.io/gymbase/"><strong>▶ Live-Version öffnen: marcl11111.github.io/gymbase</strong></a></p>
+
 ![Dashboard](docs/screenshots/dashboard.jpg)
 
 ## Inhalt

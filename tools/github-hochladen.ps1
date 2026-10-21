@@ -28,8 +28,15 @@ Info "GitHub-Anmeldung"
 gh auth status *> $null
 if ($LASTEXITCODE -ne 0) {
   Write-Host "Es oeffnet sich gleich der Browser. Code aus diesem Fenster dort eingeben und GitHub CLI erlauben."
-  gh auth login --hostname github.com --git-protocol https --web
+  gh auth login --hostname github.com --git-protocol https --web --scopes workflow
   if ($LASTEXITCODE -ne 0) { Fehler "Anmeldung fehlgeschlagen." }
+} else {
+  # Fuer GitHub-Actions-Dateien wird die Berechtigung "workflow" benoetigt
+  $st = (gh auth status 2>&1 | Out-String)
+  if ($st -notmatch 'workflow') {
+    Write-Host "Zusaetzliche Berechtigung 'workflow' wird angefragt (fuer die automatischen Tests auf GitHub)."
+    gh auth refresh --hostname github.com --scopes workflow
+  }
 }
 gh auth setup-git *> $null
 $user = (gh api user --jq .login).Trim()
@@ -48,6 +55,14 @@ function Ensure-Identity {
 
 # ---------------------------------------------------------------- GymBase-Repo
 Info "Lokales Git-Repository vorbereiten"
+# CI-Workflow an seinen Platz verschieben (liegt in tools\, weil .github\ nicht direkt beschrieben werden konnte)
+foreach ($wf in @('ci.yml', 'deploy.yml')) {
+  $src = Join-Path $PSScriptRoot $wf
+  if (Test-Path $src) {
+    New-Item -ItemType Directory -Force -Path (Join-Path $root '.github\workflows') | Out-Null
+    Move-Item $src (Join-Path $root ".github\workflows\$wf") -Force
+  }
+}
 if (-not (Test-Path (Join-Path $root '.git'))) {
   git init *> $null
   git checkout -b main *> $null
@@ -90,6 +105,25 @@ if ($LASTEXITCODE -ne 0) {
   }
 }
 gh repo edit $repo --description $desc --add-topic react --add-topic typescript --add-topic vite --add-topic tailwindcss --add-topic gsap --add-topic fitness --add-topic workout-tracker --add-topic training-plan *> $null
+
+# ---------------------------------------------------------------- GitHub Pages
+$pagesUrl = "https://$($user.ToLower()).github.io/gymbase/"
+$isPrivate = (gh repo view $repo --json isPrivate --jq .isPrivate).Trim()
+if ($isPrivate -eq 'true') {
+  Write-Host "Hinweis: Das Repository ist privat. GitHub Pages ist mit einem kostenlosen Konto nur fuer oeffentliche Repositories verfuegbar." -ForegroundColor Yellow
+} else {
+  Info "GitHub Pages einrichten"
+  gh api "repos/$repo/pages" *> $null
+  if ($LASTEXITCODE -ne 0) {
+    gh api -X POST "repos/$repo/pages" -f build_type=workflow *> $null
+  } else {
+    gh api -X PUT "repos/$repo/pages" -f build_type=workflow *> $null
+  }
+  gh repo edit $repo --homepage $pagesUrl *> $null
+  # Deploy anstossen (falls der Push vor dem Einschalten von Pages lief)
+  gh workflow run deploy.yml --repo $repo *> $null
+  Write-Host "Website (nach ca. 1-2 Minuten): $pagesUrl"
+}
 
 # ---------------------------------------------------------------- Profil-README
 Info "Profil-README ($user/$user) aktualisieren"
@@ -143,4 +177,5 @@ Remove-Item $tmp -Recurse -Force -ErrorAction SilentlyContinue
 Info "Fertig"
 Write-Host "Repository: https://github.com/$repo"
 Write-Host "Profil:     https://github.com/$user"
+if ($isPrivate -ne 'true') { Write-Host "Website:    $pagesUrl" }
 gh repo view $repo --web *> $null
